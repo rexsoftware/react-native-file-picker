@@ -41,6 +41,7 @@ class FilePicker extends ReactContextBaseJavaModule implements ActivityEventList
         try {
             final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("*/*");
 
             currentActivity.startActivityForResult(intent, FILE_PICKER_REQUEST_CODE);
 
@@ -52,7 +53,7 @@ class FilePicker extends ReactContextBaseJavaModule implements ActivityEventList
 
     public void onNewIntent(Intent intent) {}
 
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+    public void onActivityResult(final Activity activity, final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == FILE_PICKER_REQUEST_CODE) {
             if (mFilePickerPromise != null) {
                 if (resultCode == Activity.RESULT_CANCELED) {
